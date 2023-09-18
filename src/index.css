@@ -35,8 +35,8 @@ ul,
 ol {
   margin: 0;
   padding: 0;
-  padding-left: 20px;
   text-decoration: none;
+  list-style: none;
 }
 
 a {
