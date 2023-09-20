@@ -38,8 +38,15 @@ ol {
   text-decoration: none;
   list-style: none;
 }
+li {
+  list-style: none;
+}
 
 a {
   text-decoration: none;
   color: #000;
+  cursor: pointer;
+}
+button {
+  cursor: pointer;
 }
