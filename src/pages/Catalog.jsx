@@ -13,54 +13,40 @@ import {
   Model,
   NameWrapper,
 } from "./Catalog.styled";
-import { FilterWrapper } from "../components/FilterWrapper/FilterWrapper";
 import { LoadMore } from "../components/LoadMore/LoadMore";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
-import { getCarThunk } from "../redux/carThunk";
-import { setCar, setCarId, setFavorite, setPage } from "../redux/carSlice";
-import { firstElemOfArr, stringSlice } from "../utils/carInfo";
+import { setCar, setFavorite, setPage } from "../redux/carSlice";
+import {  stringSlice } from "../utils/carInfo";
 import { Modal } from "../components/Modal/Modal";
 import { Container } from "../App.styled";
 
 const Catalog = () => {
   const dispatch = useDispatch();
-  const { items, favorite } = useSelector((state) => state.cars);
-  const [page, setPage] = useState(1);
+  const { items, favorite, page} = useSelector((state) => state.cars);
   const [showModal, setShowModal] = useState(false);
 
-  useEffect(() => {
-    const promise = dispatch(getCarThunk(page));
-    return () => promise.abort();
-  }, [dispatch, page]);
-
   const onLoadMore = () => {
-    setPage((prevState) => prevState + 1);
+    dispatch(setPage(page))
   };
 
   const openModal = (item) => {
     dispatch(setCar(item));
     setShowModal(true);
   };
+
   const closeModal = () => {
     setShowModal(false);
   };
 
   const handleClick = (id) => {
-      // const index = favorite.findIndex((item) => item === id);
-      // if (index>=0) {
-      //   setLike(prevState=> prevState)
-      // } else {
-      //  setLike(prevState=> !prevState)
-      // }
-    
     dispatch(setFavorite(id));
   };
+  
 
   return (
     <Container>
     <ContainerCatalog>
-      {/* <FilterWrapper /> */}
       {showModal && <Modal closeModal={closeModal} />}
       <List>
         {items &&

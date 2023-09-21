@@ -13,7 +13,7 @@ import {
   NameWrapper,
 } from "./Catalog.styled";
 import { Modal } from "../components/Modal/Modal";
-import { setCar, setFavorite } from "../redux/carSlice";
+import { setCar, setFavorite, setPage } from "../redux/carSlice";
 import { stringSlice } from "../utils/carInfo";
 import { LoadMore } from "../components/LoadMore/LoadMore";
 import { ToastContainer } from "react-toastify";
@@ -21,11 +21,13 @@ import { Container } from "../App.styled";
 
 const Favorite = () => {
   const dispatch = useDispatch();
-  const { favorite, items } = useSelector((state) => state.cars);
+  const { favorite, items, page } = useSelector((state) => state.cars);
   const [showModal, setShowModal] = useState(false);
-  const [page, setPage] = useState(1);
+
+  let filteredArr = [];
+  // const [page, setPage] = useState(1);
   const onLoadMore = () => {
-    setPage((prevState) => prevState + 1);
+    dispatch(setPage(page))
   };
 
   const openModal = (item) => {
@@ -38,22 +40,25 @@ const Favorite = () => {
   const handleClick = (id) => {
     dispatch(setFavorite(id));
   };
-  
+
   const filteredItems = () => {
     for (let i = 0; i < favorite.length; i += 1) {
-      const filteredArr =items.filter(item => item.id === favorite[i])
-    return filteredArr
+      items.filter((item) => item.id === favorite[i] && filteredArr.push(item));
     }
   };
-  
+  filteredItems()
+
+  const limit = () => {
+    
+  }
 
   return (
     <Container>
-      {/* <FilterWrapper /> */}
+      <ContainerCatalog>
       {showModal && <Modal closeModal={closeModal} />}
       <List>
-        {filteredItems() ? (
-          filteredItems().map((item) => (
+        {filteredArr ? (
+          filteredArr.map((item) => (
             <Card key={item.id}>
               <LikeBtn
                 type="button"
@@ -91,7 +96,8 @@ const Favorite = () => {
         )}
       </List>
       <LoadMore onLoadMoreClick={onLoadMore} />
-      <ToastContainer />
+        <ToastContainer />
+        </ContainerCatalog>
     </Container>
   );
 };

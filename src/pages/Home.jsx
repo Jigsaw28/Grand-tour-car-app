@@ -1,10 +1,12 @@
-import { Hero, Title } from "./Home.styled";
+import { Hero, Title, WrapperTitle } from "./Home.styled";
 
 const Home = () => {
   return (
     <>
       <Hero>
-        <Title>Welcome to our company</Title>
+        <WrapperTitle>
+          <Title>Welcome to our company</Title>
+        </WrapperTitle>
       </Hero>
     </>
   );

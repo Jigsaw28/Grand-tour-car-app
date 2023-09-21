@@ -1,10 +1,10 @@
 import styled from "styled-components";
-import {ReactComponent as LikeStyle} from "../images/like.svg"
+import { ReactComponent as LikeStyle } from "../images/like.svg";
 
 export const ContainerCatalog = styled.div`
-   display: flex;
-   flex-direction: column;
-`
+  display: flex;
+  flex-direction: column;
+`;
 
 export const Card = styled.li`
   width: 274px;
@@ -19,7 +19,7 @@ export const List = styled.ul`
 `;
 
 export const Image = styled.img`
-border-radius: 14px;
+  border-radius: 14px;
   object-fit: cover;
   width: 100%;
   height: 268px;
@@ -56,13 +56,13 @@ export const Model = styled.span`
   color: #3470ff;
 `;
 export const BtnLearnMore = styled.button`
-position: absolute;
-bottom: 0;
+  position: absolute;
+  bottom: 0;
   width: 100%;
   padding-top: 12px;
   padding-bottom: 12px;
   border-radius: 12px;
-  background: #3470ff;
+  background-color: #3470ff;
   border: none;
   color: #fff;
   font-family: Manrope;
@@ -70,6 +70,12 @@ bottom: 0;
   font-style: normal;
   font-weight: 600;
   line-height: 1.42; /* 142.857% */
+  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);;
+
+  &:hover,
+  &:focus {
+    background-color: #0B44CD;
+  }
 `;
 
 export const LikeSvg = styled(LikeStyle)`
@@ -86,7 +92,7 @@ export const LikeSvg = styled(LikeStyle)`
     fill: rgba(52, 112, 255, 1);
     stroke: currentColor;
   }
-`
+`;
 
 export const LikeBtn = styled.button`
   position: absolute;
