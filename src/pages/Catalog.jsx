@@ -20,6 +20,7 @@ import { setCar, setFavorite, setPage } from "../redux/carSlice";
 import {  stringSlice } from "../utils/carInfo";
 import { Modal } from "../components/Modal/Modal";
 import { Container } from "../App.styled";
+import { useLocation } from "react-router-dom";
 
 const Catalog = () => {
   const dispatch = useDispatch();

@@ -10,3 +10,9 @@ export const stringCut = (string) => {
     const stringr = arr.join("  ")
     return stringr
 }
+
+export const filteredItems = (favorite, items, filteredArr) => {
+    for (let i = 0; i < favorite.length; i += 1) {
+      items.filter((item) => item.id === favorite[i] && filteredArr.push(item));
+    }
+  };

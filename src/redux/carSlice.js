@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { getCarThunk } from "./carThunk";
+import { useLocation } from "react-router-dom";
 
 const initialState = {
   car: {},
