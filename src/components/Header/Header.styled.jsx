@@ -9,7 +9,6 @@ export const HeaderContainer = styled.div`
 `;
 
 export const Link = styled(NavLink)`
-  font-family: Manrope;
   font-size: 25px;
   font-style: normal;
   font-weight: 500;
