@@ -24,7 +24,9 @@ import { List } from "../components/List/List";
 
 const Catalog = () => {
   const dispatch = useDispatch();
-  const { items, favorite, page } = useSelector((state) => state.cars);
+  const { items, favorite, page, isLoading } = useSelector(
+    (state) => state.cars
+  );
   const [showModal, setShowModal] = useState(false);
 
   const onLoadMore = () => {
@@ -49,7 +51,9 @@ const Catalog = () => {
       <ContainerCatalog>
         {showModal && <Modal closeModal={closeModal} />}
         <List handleClick={handleClick} openModal={openModal} />
-        <LoadMore onLoadMoreClick={onLoadMore} />
+        {!isLoading && items.length && (
+          <LoadMore onLoadMoreClick={onLoadMore} />
+        )}
         <ToastContainer />
       </ContainerCatalog>
     </Container>
