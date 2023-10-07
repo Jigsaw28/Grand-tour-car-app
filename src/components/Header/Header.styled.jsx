@@ -10,7 +10,7 @@ export const HeaderContainer = styled.div`
 
 export const Link = styled(NavLink)`
   font-size: 25px;
-  font-style: normal;
+  font-family: ManropeMedium;
   font-weight: 500;
   line-height: 1.33;
   color: ${props => (props.$active ? '#3470ff' : '#121417')};

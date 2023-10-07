@@ -31,11 +31,9 @@ export const ModalImg = styled.img`
 `;
 
 export const NameWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
   color: #121417;
   font-size: 18px;
-  font-style: normal;
+  font-family: ManropeMedium;
   font-weight: 500;
   line-height: 1.33; /* 150% */
 `;
@@ -62,12 +60,10 @@ export const CloseBtn = styled.button`
 `;
 
 export const ItemWrapper = styled.div`
-  display: flex;
-  flex-wrap: wrap;
   padding-top: 8px;
   color: rgba(18, 20, 23, 0.5);
   font-size: 12px;
-  font-style: normal;
+  font-family: ManropeRegular;
   font-weight: 400;
   line-height: 1.5; /* 150% */ /* 150% */
 `;
@@ -90,6 +86,7 @@ export const Title = styled.p`
   color: #121417;
   font-size: 14px;
   font-style: normal;
+  font-family: ManropeMedium;
   font-weight: 500;
   line-height: 20px;
 `;
@@ -99,6 +96,7 @@ export const Description = styled.p`
   color: #121417;
   font-size: 14px;
   font-style: normal;
+  font-family: ManropeRegular;
   font-weight: 400;
   line-height: 1.42; /* 142.857% */
 `;
@@ -107,6 +105,7 @@ export const AccessoriesWrap = styled.div`
   color: rgba(18, 20, 23, 0.5);
   font-size: 12px;
   font-style: normal;
+  font-family: ManropeRegular;
   font-weight: 400;
   line-height: 1.5;
 `;
@@ -119,17 +118,22 @@ export const TitleRentalCond = styled.span`
   color: #121417;
   font-size: 14px;
   font-style: normal;
+  font-family: ManropeMedium;
   font-weight: 500;
   line-height: 1.5; /* 142.857% */
 `;
 
 export const WrappConditions = styled.div`
+  padding-top: 8px;
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
 `;
 
 export const TextConditions = styled.span`
+  font-family: MontserratRegular;
+  font-size: 12px;
+  font-weight: 400;
   padding: 7px 14px;
 `;
 
@@ -142,6 +146,7 @@ export const Link = styled.a`
 
   color: #fff;
   font-size: 14px;
+  font-family: ManropeSemiBold;
   font-weight: 600;
   line-height: 1.42857;
 
@@ -151,4 +156,10 @@ export const Link = styled.a`
   &:focus {
     background-color: #0b44cd;
   }
+`;
+
+export const TextConditionsAccent = styled.span`
+  font-family: MontserratSemiBold;
+  color: #3470ff;
+  font-weight: 600;
 `;

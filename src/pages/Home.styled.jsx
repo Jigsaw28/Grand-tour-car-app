@@ -13,7 +13,7 @@ export const Hero = styled.section`
 
 export const Title = styled.h1`
   color: #121417;
-  font-family: Manrope;
+  font-family: ManropeMedium;
   font-size: 35px;
   font-style: normal;
   font-weight: 500;

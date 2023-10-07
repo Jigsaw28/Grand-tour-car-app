@@ -1,30 +1,17 @@
-import { useEffect, useState } from "react";
-import { fetchAdvert } from "../api/fetchAdvert";
-import { nanoid } from "nanoid";
-import {
-  BtnLearnMore,
-  Card,
-  ContainerCatalog,
-  Image,
-  ItemWrapper,
-  LikeBtn,
-  LikeSvg,
-  Model,
-  NameWrapper,
-} from "./Catalog.styled";
+import { useState } from "react";
+import { ContainerCatalog,} from "./Catalog.styled";
 import { LoadMore } from "../components/LoadMore/LoadMore";
 import { ToastContainer } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { setCar, setFavorite, setPage } from "../redux/carSlice";
-import { stringSlice } from "../utils/carInfo";
 import { Modal } from "../components/Modal/Modal";
 import { Container } from "../App.styled";
-import { useLocation } from "react-router-dom";
 import { List } from "../components/List/List";
+import { FilterWrapper } from "../components/FilterWrapper/FilterWrapper";
 
 const Catalog = () => {
   const dispatch = useDispatch();
-  const { items, favorite, page, isLoading } = useSelector(
+  const { items, page, isLoading } = useSelector(
     (state) => state.cars
   );
   const [showModal, setShowModal] = useState(false);
@@ -48,10 +35,11 @@ const Catalog = () => {
 
   return (
     <Container>
+      <FilterWrapper />
       <ContainerCatalog>
         {showModal && <Modal closeModal={closeModal} />}
         <List handleClick={handleClick} openModal={openModal} />
-        {!isLoading && items.length && (
+        {items.length > 0 && !isLoading && (
           <LoadMore onLoadMoreClick={onLoadMore} />
         )}
         <ToastContainer />

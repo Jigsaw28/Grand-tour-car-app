@@ -14,14 +14,13 @@ import {
   Overlay,
   RentalConditions,
   TextConditions,
+  TextConditionsAccent,
   Title,
   TitleRentalCond,
   WrappConditions,
-  WrapperProp,
 } from "./Modal.styled";
 import { useSelector } from "react-redux";
 import { stringCut, stringSlice } from "../../utils/carInfo";
-import { nanoid } from "nanoid";
 import { Model } from "../List/List.styled";
 
 const modalRoot = document.querySelector("#modal-root");
@@ -57,7 +56,6 @@ export const Modal = ({ closeModal }) => {
           <p>
             {car.make} <Model>{car.model}</Model>, {car.year}
           </p>
-          <p>{car.rentalPrice}</p>
         </NameWrapper>
         <ItemWrapper>
           <p>
@@ -96,11 +94,30 @@ export const Modal = ({ closeModal }) => {
         <RentalConditions>
           <TitleRentalCond>Rental Conditions:</TitleRentalCond>
           <WrappConditions>
-            <TextConditions>{stringCut(car.rentalConditions)[0]}</TextConditions>
-            <TextConditions>{stringCut(car.rentalConditions)[1]}</TextConditions>
-            <TextConditions>{stringCut(car.rentalConditions)[2]}</TextConditions>
-            <TextConditions>Mileage:{car.mileage} </TextConditions>
-            <TextConditions>Price:{car.rentalPrice}</TextConditions>
+            <TextConditions>
+              Minimum age:{" "}
+              <TextConditionsAccent>
+                {stringCut(car.rentalConditions)[0].slice(13, 15)}
+              </TextConditionsAccent>
+            </TextConditions>
+            <TextConditions>
+              {stringCut(car.rentalConditions)[1]}
+            </TextConditions>
+            <TextConditions>
+              {stringCut(car.rentalConditions)[2]}
+            </TextConditions>
+            <TextConditions>
+              Mileage:{" "}
+              <TextConditionsAccent>
+                {car.mileage.toLocaleString("en-US")}
+              </TextConditionsAccent>{" "}
+            </TextConditions>
+            <TextConditions>
+              Price:{" "}
+              <TextConditionsAccent>
+                {car.rentalPrice.replace("$", "") + "$"}
+              </TextConditionsAccent>
+            </TextConditions>
           </WrappConditions>
         </RentalConditions>
         <Link href="tel:+380730000000">Rental car</Link>

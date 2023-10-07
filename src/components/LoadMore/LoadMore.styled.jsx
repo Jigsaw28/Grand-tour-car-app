@@ -7,7 +7,7 @@ margin-right: auto;
 margin-top: 100px;
 color: #3470FF;
 font-size: 16px;
-font-style: normal;
+font-family: ManropeMedium;
 font-weight: 500;
 line-height: 1.5; /* 150% */
 text-decoration-line: underline;

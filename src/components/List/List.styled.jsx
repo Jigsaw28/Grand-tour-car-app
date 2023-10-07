@@ -60,7 +60,7 @@ export const NameWrapper = styled.div`
   padding-top: 14px;
   color: #121417;
   font-size: 16px;
-  font-style: normal;
+  font-family: ManropeMedium;
   font-weight: 500;
   line-height: 1.5; /* 150% */
 `;
@@ -70,7 +70,7 @@ export const ItemWrapper = styled.div`
   padding-top: 8px;
   color: rgba(18, 20, 23, 0.5);
   font-size: 12px;
-  font-style: normal;
+  font-family: ManropeRegular;
   font-weight: 400;
   line-height: 1.5; /* 150% */
 `;
@@ -90,7 +90,7 @@ export const BtnLearnMore = styled.button`
   border: none;
   color: #fff;
   font-size: 14px;
-  font-style: normal;
+  font-family: ManropeSemiBold;
   font-weight: 600;
   line-height: 1.42; /* 142.857% */
   transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);;
