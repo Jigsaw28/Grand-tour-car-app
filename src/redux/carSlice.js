@@ -1,10 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { getCarThunk } from "./carThunk";
-import { useLocation } from "react-router-dom";
 
 const initialState = {
   car: {},
+  allAdverts: [],
   favorite: [],
+  filterCar: null,
   items: [],
   isLoading: false,
   error: null,
@@ -14,22 +15,25 @@ const carSlice = createSlice({
   name: "cars",
   initialState,
   reducers: {
+    setFilterCar: (state, { payload }) => {
+      state.filterCar = payload;
+    },
     setCar: (state, { payload }) => {
       state.car = payload;
     },
     setFavorite: (state, { payload }) => {
-      const index = state.favorite.findIndex(id=> id===payload)
-      if (index>=0) {
+      const index = state.favorite.findIndex((id) => id === payload);
+      if (index >= 0) {
         state.favorite.splice(index, 1);
       } else {
         state.favorite.push(payload);
       }
     },
     setItems: (state, { payload }) => {
-      state.items = payload
+      state.items = payload;
     },
     setPage: (state, { payload }) => {
-      state.page = payload +1
+      state.page = payload + 1;
     },
   },
   extraReducers: (builder) => {
@@ -39,7 +43,7 @@ const carSlice = createSlice({
       })
       .addCase(getCarThunk.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.items.push(...action.payload);
+        state.allAdverts.push(...action.payload);
       })
       .addCase(getCarThunk.rejected, (state, action) => {
         state.isLoading = false;
@@ -48,5 +52,6 @@ const carSlice = createSlice({
   },
 });
 
-export const { setCar, setFavorite, setItems, setPage } = carSlice.actions;
+export const { setCar, setFavorite, setItems, setPage, setFilterCar } =
+  carSlice.actions;
 export const carReducer = carSlice.reducer;

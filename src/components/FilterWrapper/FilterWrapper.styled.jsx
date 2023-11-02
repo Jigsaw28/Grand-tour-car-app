@@ -1,7 +1,9 @@
 import styled from "styled-components";
 
 export const ContainerFilter = styled.div`
-    
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
 `
 
 export const Label = styled.label`
@@ -14,3 +16,16 @@ export const Label = styled.label`
   font-weight: 500;
   line-height: 1.28; /* 128.571% */
 `;
+
+export const BtnSearch = styled.button`
+width: 136px;
+height: 48px;
+padding: 14px 44px;
+border-radius: 12px;
+color: #fff;
+background: #3470FF;
+font-family: ManropeSemiBold;
+font-size: 14px;
+font-weight: 600;
+line-height: 1.42;
+`

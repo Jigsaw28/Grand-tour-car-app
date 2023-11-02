@@ -11,21 +11,15 @@ import {
   Model,
   NameWrapper,
 } from "./List.styled";
-import { filteredItems, stringSlice } from "../../utils/carInfo";
-import { useLocation } from "react-router-dom";
+import { stringSlice } from "../../utils/carInfo";
 
-export const List = ({ handleClick, openModal }) => {
-  const location = useLocation();
-  const { favorite, items } = useSelector((state) => state.cars);
-
-  let filteredArr = [];
-
-  filteredItems(favorite, items, filteredArr);
+export const List = ({ handleClick, openModal, filteredArr }) => {
+  const { favorite, items, filterCar } = useSelector((state) => state.cars);
 
   return (
     <ListWrraper>
-      {(location.pathname === "/catalog" ? items : filteredArr) &&
-        (location.pathname === "/catalog" ? items : filteredArr).map((item) => (
+      {items &&
+        items.map((item) => (
           <Card key={nanoid()}>
             <LikeBtn
               type="button"

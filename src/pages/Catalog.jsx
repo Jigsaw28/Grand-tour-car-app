@@ -1,23 +1,30 @@
-import { useState } from "react";
-import { ContainerCatalog,} from "./Catalog.styled";
+import { useEffect, useState } from "react";
+import { ContainerCatalog } from "./Catalog.styled";
 import { LoadMore } from "../components/LoadMore/LoadMore";
 import { ToastContainer } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
-import { setCar, setFavorite, setPage } from "../redux/carSlice";
+import { setCar, setFavorite, setItems, setPage } from "../redux/carSlice";
 import { Modal } from "../components/Modal/Modal";
 import { Container } from "../App.styled";
 import { List } from "../components/List/List";
 import { FilterWrapper } from "../components/FilterWrapper/FilterWrapper";
+import { getCarThunk } from "../redux/carThunk";
 
 const Catalog = () => {
   const dispatch = useDispatch();
-  const { items, page, isLoading } = useSelector(
+  const { items, allAdverts, isLoading, filterCar } = useSelector(
     (state) => state.cars
   );
+  const [startIndex, setStartIndex] = useState(0);
   const [showModal, setShowModal] = useState(false);
+  const itemsPerPage = 8;
+
+  useEffect(() => {
+    dispatch(setItems(allAdverts.slice(0, startIndex + itemsPerPage)))
+  }, [allAdverts, dispatch, startIndex])
 
   const onLoadMore = () => {
-    dispatch(setPage(page));
+    setStartIndex(startIndex + itemsPerPage);
   };
 
   const openModal = (item) => {

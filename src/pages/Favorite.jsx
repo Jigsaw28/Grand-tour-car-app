@@ -1,34 +1,39 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  BtnLearnMore,
-  Card,
   ContainerCatalog,
-  Image,
-  ItemWrapper,
-  LikeBtn,
-  LikeSvg,
-  Model,
-  NameWrapper,
   Text,
 } from "./Catalog.styled";
 import { Modal } from "../components/Modal/Modal";
-import { setCar, setFavorite, setPage } from "../redux/carSlice";
-import { filteredItems, stringSlice } from "../utils/carInfo";
+import { setCar, setFavorite, setItems } from "../redux/carSlice";
+import { filteredItems } from "../utils/carInfo";
 import { LoadMore } from "../components/LoadMore/LoadMore";
 import { ToastContainer } from "react-toastify";
 import { Container } from "../App.styled";
 import { List } from "../components/List/List";
+import { FilterWrapper } from "../components/FilterWrapper/FilterWrapper";
 
 const Favorite = () => {
   const dispatch = useDispatch();
 
-  const { favorite } = useSelector((state) => state.cars);
+  const { favorite, allAdverts } = useSelector((state) => state.cars);
   const [showModal, setShowModal] = useState(false);
+  const [startIndex, setStartIndex] = useState(0);
+  const itemsPerPage = 8;
 
-  // const onLoadMore = () => {
-  //   dispatch(setPage(page));
-  // };
+  const filteredFavoriteCar = useMemo(() => {
+    let filteredArr = [];
+    return filteredItems(favorite, allAdverts, filteredArr);
+  }, [allAdverts, favorite]);
+  console.log(filteredFavoriteCar);
+
+  useEffect(() => {
+    dispatch(setItems(filteredFavoriteCar.slice(0, startIndex + itemsPerPage)));
+  }, [dispatch, filteredFavoriteCar, startIndex]);
+
+  const onLoadMore = () => {
+    setStartIndex(startIndex + itemsPerPage);
+  };
 
   const openModal = (item) => {
     dispatch(setCar(item));
@@ -43,15 +48,20 @@ const Favorite = () => {
 
   return (
     <Container>
+      <FilterWrapper />
       <ContainerCatalog>
         {showModal && <Modal closeModal={closeModal} />}
         {favorite.length > 0 ? (
-          <List handleClick={handleClick} openModal={openModal} />
+          <List
+            handleClick={handleClick}
+            openModal={openModal}
+            filteredArr={filteredFavoriteCar}
+          />
         ) : (
           <Text>You don't have favorite cars</Text>
         )}
 
-        {/* <LoadMore onLoadMoreClick={onLoadMore} /> */}
+        <LoadMore onLoadMoreClick={onLoadMore} />
         <ToastContainer />
       </ContainerCatalog>
     </Container>

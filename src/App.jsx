@@ -17,11 +17,11 @@ const App = () => {
   const { page, isLoading } = useSelector((state) => state.cars);
 
   useEffect(() => {
-    const promise = dispatch(getCarThunk(page));
+    const promise = dispatch(getCarThunk());
     return () => {
       promise.abort();
     };
-  }, [dispatch, page]);
+  }, [dispatch]);
 
   return isLoading ? (
     <Loader />
