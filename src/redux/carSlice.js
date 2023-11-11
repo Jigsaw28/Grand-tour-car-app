@@ -9,7 +9,6 @@ const initialState = {
   items: [],
   isLoading: false,
   error: null,
-  page: 1,
 };
 const carSlice = createSlice({
   name: "cars",
@@ -32,9 +31,6 @@ const carSlice = createSlice({
     setItems: (state, { payload }) => {
       state.items = payload;
     },
-    setPage: (state, { payload }) => {
-      state.page = payload + 1;
-    },
   },
   extraReducers: (builder) => {
     builder
@@ -52,6 +48,6 @@ const carSlice = createSlice({
   },
 });
 
-export const { setCar, setFavorite, setItems, setPage, setFilterCar } =
+export const { setCar, setFavorite, setItems, setFilterCar } =
   carSlice.actions;
 export const carReducer = carSlice.reducer;

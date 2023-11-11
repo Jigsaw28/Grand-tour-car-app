@@ -25,7 +25,6 @@ const Favorite = () => {
     let filteredArr = [];
     return filteredItems(favorite, allAdverts, filteredArr);
   }, [allAdverts, favorite]);
-  console.log(filteredFavoriteCar);
 
   useEffect(() => {
     dispatch(setItems(filteredFavoriteCar.slice(0, startIndex + itemsPerPage)));
@@ -48,7 +47,7 @@ const Favorite = () => {
 
   return (
     <Container>
-      <FilterWrapper />
+      <FilterWrapper onLoadMore={onLoadMore} />
       <ContainerCatalog>
         {showModal && <Modal closeModal={closeModal} />}
         {favorite.length > 0 ? (

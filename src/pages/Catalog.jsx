@@ -8,11 +8,10 @@ import { Modal } from "../components/Modal/Modal";
 import { Container } from "../App.styled";
 import { List } from "../components/List/List";
 import { FilterWrapper } from "../components/FilterWrapper/FilterWrapper";
-import { getCarThunk } from "../redux/carThunk";
 
 const Catalog = () => {
   const dispatch = useDispatch();
-  const { items, allAdverts, isLoading, filterCar } = useSelector(
+  const { items, allAdverts, isLoading } = useSelector(
     (state) => state.cars
   );
   const [startIndex, setStartIndex] = useState(0);

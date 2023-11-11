@@ -12,7 +12,7 @@ export const stringCut = (string) => {
 
 export const filteredItems = (favorite, items, filteredArr) => {
   for (let i = 0; i < favorite.length; i += 1) {
-      items.filter((item) => item.id === favorite[i] && filteredArr.push(item));
+      items?.filter((item) => item.id === favorite[i] && filteredArr.push(item));
   }
   return filteredArr;
 };
