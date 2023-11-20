@@ -16,7 +16,7 @@ import { FilterWrapper } from "../components/FilterWrapper/FilterWrapper";
 const Favorite = () => {
   const dispatch = useDispatch();
 
-  const { favorite, allAdverts } = useSelector((state) => state.cars);
+  const { favorite, allAdverts, filterCar } = useSelector((state) => state.cars);
   const [showModal, setShowModal] = useState(false);
   const [startIndex, setStartIndex] = useState(0);
   const itemsPerPage = 8;
@@ -27,8 +27,8 @@ const Favorite = () => {
   }, [allAdverts, favorite]);
 
   useEffect(() => {
-    dispatch(setItems(filteredFavoriteCar.slice(0, startIndex + itemsPerPage)));
-  }, [dispatch, filteredFavoriteCar, startIndex]);
+    filterCar?.length>0? dispatch(setItems(filterCar.slice(0, startIndex + itemsPerPage))):dispatch(setItems(filteredFavoriteCar.slice(0, startIndex + itemsPerPage)));
+  }, [dispatch, filterCar, filteredFavoriteCar, startIndex]);
 
   const onLoadMore = () => {
     setStartIndex(startIndex + itemsPerPage);

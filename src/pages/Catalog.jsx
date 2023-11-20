@@ -11,7 +11,7 @@ import { FilterWrapper } from "../components/FilterWrapper/FilterWrapper";
 
 const Catalog = () => {
   const dispatch = useDispatch();
-  const { items, allAdverts, isLoading } = useSelector(
+  const { items, allAdverts, isLoading, filterCar } = useSelector(
     (state) => state.cars
   );
   const [startIndex, setStartIndex] = useState(0);
@@ -19,8 +19,8 @@ const Catalog = () => {
   const itemsPerPage = 8;
 
   useEffect(() => {
-    dispatch(setItems(allAdverts.slice(0, startIndex + itemsPerPage)))
-  }, [allAdverts, dispatch, startIndex])
+    filterCar?.length>0? dispatch(setItems(filterCar.slice(0, startIndex + itemsPerPage))):dispatch(setItems(allAdverts.slice(0, startIndex + itemsPerPage)))
+  }, [allAdverts, dispatch, filterCar, startIndex])
 
   const onLoadMore = () => {
     setStartIndex(startIndex + itemsPerPage);

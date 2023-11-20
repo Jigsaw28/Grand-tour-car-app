@@ -1,9 +1,12 @@
 import styled from "styled-components";
 import image from "../images/hero.jpg";
 
-export const Hero = styled.section`
+export const Hero = styled.div`
   width: 100vw;
+  max-width: 1440px;
   height: 100vh;
+  margin-left: auto;
+  margin-right: auto;
 
   background-repeat: no-repeat;
   background-position: center;

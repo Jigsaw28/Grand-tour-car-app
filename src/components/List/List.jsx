@@ -12,31 +12,15 @@ import {
   NameWrapper,
 } from "./List.styled";
 import { filteredItems, stringSlice } from "../../utils/carInfo";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { useLocation } from "react-router-dom";
 
 export const List = ({ handleClick, openModal, filteredArr }) => {
-  const location = useLocation();
-  const { favorite, items, filterCar } = useSelector((state) => state.cars);
-
-  const filteredFavoriteCar = useMemo(() => {
-    let filteredArr = [];
-    return filteredItems(favorite, filterCar, filteredArr);
-  }, [favorite, filterCar]);
-
-  const onChangePageFilter = () => {
-    if (location.pathname === "/favorites" && filterCar) {
-      return filteredFavoriteCar;
-    } else if (location.pathname !== "/favorites" && filterCar) {
-      return filterCar;
-    } else {
-      return items;
-    }
-  }
+  const { favorite, items } = useSelector((state) => state.cars);
 
   return (
     <ListWrraper>
-      {onChangePageFilter().map(
+      {items.map(
         (item) => (
           <Card key={nanoid()}>
             <LikeBtn

@@ -7,14 +7,16 @@ import { setFilterCar } from "../../redux/carSlice";
 
 export const FilterWrapper = () => {
   const dispatch = useDispatch();
-  const { allAdverts } = useSelector((state) => state.cars);
+  const { allAdverts, items } = useSelector((state) => state.cars);
   const [makes, setMakes] = useState([]);
   const [carBrand, setCarBrand] = useState("");
   const [price, setPrice] = useState("");
+  
 
   useEffect(() => {
     fetchMakes().then((data) => setMakes(data));
   }, []);
+
 
   let options = [];
   const priceOptions = [];
@@ -41,7 +43,7 @@ export const FilterWrapper = () => {
       const findCar = allAdverts.filter((item) => item.make === carBrand)
       dispatch(setFilterCar(findCar));
     } else if (price) {
-      const findCar = allAdverts.filter((item) => item.rentalPrice.slice(1, item.rentalPrice.length) >= price)
+      const findCar = allAdverts.filter((item) => item.rentalPrice.slice(1, item.rentalPrice.length) <= price)
       dispatch(setFilterCar(findCar));
     }
   };
