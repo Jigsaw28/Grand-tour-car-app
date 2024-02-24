@@ -1,22 +1,30 @@
 import { useEffect, useState } from "react";
 import Select from "react-select";
+import { Formik, Field } from "formik";
 import { fetchMakes } from "../../api/fetchAdvert";
-import { BtnSearch, ContainerFilter, Label } from "./FilterWrapper.styled";
+import {
+  BtnSearch,
+  ContainerFilter,
+  Form,
+  Label,
+} from "./FilterWrapper.styled";
 import { useDispatch, useSelector } from "react-redux";
-import { setFilterCar } from "../../redux/carSlice";
+import { setFilterCar, setItems } from "../../redux/carSlice";
+import { useLocation } from "react-router-dom";
+import { toast } from "react-toastify";
+import Notiflix from "notiflix";
 
-export const FilterWrapper = () => {
+export const FilterWrapper = ({ filteredFavoriteCar }) => {
   const dispatch = useDispatch();
-  const { allAdverts, items } = useSelector((state) => state.cars);
+  const location = useLocation();
+  const { allAdverts, items, favorite } = useSelector((state) => state.cars);
   const [makes, setMakes] = useState([]);
   const [carBrand, setCarBrand] = useState("");
   const [price, setPrice] = useState("");
-  
 
   useEffect(() => {
     fetchMakes().then((data) => setMakes(data));
   }, []);
-
 
   let options = [];
   const priceOptions = [];
@@ -34,27 +42,106 @@ export const FilterWrapper = () => {
   const onChangeCarPrice = (e) => {
     setPrice(e.value);
   };
-  
-  const onClickSearch = () => {
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    const form = e.currentTarget;
+    const inputMileageFrom = form.elements.from.value;
+    const inputMileageTo = form.elements.to.value;
+    // const carBrand = form.elements.name.value;
+    // const price = form.elements.price.value;
+
+    const findCarMileage = allAdverts.filter(
+      (item) => item.mileage > inputMileageFrom && item.mileage < inputMileageTo
+    );
+    // console.log(findCarMileage);
+    // dispatch(setFilterCar({ findCarMileage }));
+
     if (carBrand && price) {
-      const findCar = allAdverts.filter((item) => (item.make === carBrand) && (item.rentalPrice.slice(1, item.rentalPrice.length) <= price))
-      dispatch(setFilterCar(findCar));
+      let findCar = [];
+      location.pathname === "/favorites"
+        ? (findCar = filteredFavoriteCar.filter(
+            (favItem) =>
+              favItem.make === carBrand &&
+              favItem.rentalPrice.slice(1, favItem.rentalPrice.length) <= price
+          ))
+        : (findCar = allAdverts.filter(
+            (item) =>
+              item.make === carBrand &&
+              item.rentalPrice.slice(1, item.rentalPrice.length) <= price
+          ));
+
+      if (findCar.length === 0) {
+        Notiflix.Notify.failure("This car was not found");
+      } else {
+        dispatch(setFilterCar(findCar));
+      }
     } else if (carBrand) {
-      const findCar = allAdverts.filter((item) => item.make === carBrand)
-      dispatch(setFilterCar(findCar));
+      let findCar = [];
+      location.pathname === "/favorites"
+        ? (findCar = filteredFavoriteCar.filter(
+            (favItem) => favItem.make === carBrand
+          ))
+        : (findCar = allAdverts.filter((item) => item.make === carBrand));
+      console.log(findCar);
+      if (findCar.length === 0) {
+        Notiflix.Notify.failure("This car was not found");
+      } else {
+        dispatch(setFilterCar(findCar));
+      }
     } else if (price) {
-      const findCar = allAdverts.filter((item) => item.rentalPrice.slice(1, item.rentalPrice.length) <= price)
-      dispatch(setFilterCar(findCar));
+      let findCar = [];
+      location.pathname === "/favorites"
+        ? (findCar = filteredFavoriteCar.filter(
+            (favItem) =>
+              favItem.rentalPrice.slice(1, favItem.rentalPrice.length) <= price
+          ))
+        : (findCar = allAdverts.filter(
+            (item) =>
+              item.rentalPrice.slice(1, item.rentalPrice.length) <= price
+          ));
+
+      if (findCar.length === 0) {
+        Notiflix.Notify.failure("This car was not found");
+      } else {
+        console.log(findCar);
+        dispatch(setFilterCar(findCar));
+      }
+    } else if (findCarMileage.length) {
+      
+        dispatch(setFilterCar(findCarMileage));
+      
+    } else if (price && findCarMileage.length) {
+      let findCar = [];
+      location.pathname === "/favorites"
+        ? (findCar = filteredFavoriteCar.filter(
+            (favItem) =>
+              favItem.rentalPrice.slice(1, favItem.rentalPrice.length) <=
+                price &&
+              favItem.mileage > inputMileageFrom &&
+              favItem.mileage < inputMileageTo
+          ))
+        : (findCar = allAdverts.filter(
+            (item) =>
+              item.mileage > inputMileageFrom && item.mileage < inputMileageTo
+        ));
+      
+      if (findCar.length === 0) {
+        Notiflix.Notify.failure("This car was not found");
+      } else {
+        console.log(findCar);
+        dispatch(setFilterCar(findCar));
+      }
     }
   };
 
   return (
-    <ContainerFilter>
+    <Form onSubmit={onSubmit}>
       <Label>
         Car brand
         <Select
           options={options}
-          // value={carBrand}
+          name="name"
           onChange={onChangeCarBrand}
           placeholder="Enter the text"
           styles={{
@@ -86,7 +173,7 @@ export const FilterWrapper = () => {
               fontWeight: 500,
               lineHeight: "20px",
             }),
-            input: (baseStyles) => ({
+            input: (baseStyles, state) => ({
               ...baseStyles,
               margin: "0",
               padding: "0",
@@ -113,6 +200,7 @@ export const FilterWrapper = () => {
         Price/ 1 hour
         <Select
           options={priceOptions}
+          name="price"
           onChange={onChangeCarPrice}
           placeholder="To $"
           styles={{
@@ -167,7 +255,10 @@ export const FilterWrapper = () => {
           }}
         />
       </Label>
-      <BtnSearch onClick={onClickSearch}>Search</BtnSearch>
-    </ContainerFilter>
+      <Label>Сar mileage / km</Label>
+      <input type="number" name="from"></input>
+      <input type="number" name="to"></input>
+      <BtnSearch type="submit">Search</BtnSearch>
+    </Form>
   );
 };

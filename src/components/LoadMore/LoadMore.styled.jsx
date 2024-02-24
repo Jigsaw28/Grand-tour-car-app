@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const BtnLoadMore = styled.a`
 display: block;
+cursor: pointer;
 margin-left: auto;
 margin-right: auto;
 margin-top: 100px;
@@ -16,4 +17,3 @@ transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
     color: #0B44CD;
 }
 `
-

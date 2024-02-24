@@ -111,6 +111,9 @@ export const AccessoriesWrap = styled.div`
 `;
 export const RentalConditions = styled.div`
   margin-top: 24px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 `;
 
 export const TitleRentalCond = styled.span`

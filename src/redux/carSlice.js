@@ -1,9 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getCarThunk } from "./carThunk";
+import { getCarThunk, getMakeThunk } from "./carThunk";
 
 const initialState = {
   car: {},
   allAdverts: [],
+  allBrands: [],
   favorite: [],
   filterCar: null,
   items: [],
@@ -44,10 +45,20 @@ const carSlice = createSlice({
       .addCase(getCarThunk.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
+      })
+      .addCase(getMakeThunk.pending, (state) => {
+        state.isLoading = false;
+      })
+      .addCase(getMakeThunk.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.allBrands.push(...action.payload);
+      })
+      .addCase(getMakeThunk.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
       });
   },
 });
 
-export const { setCar, setFavorite, setItems, setFilterCar } =
-  carSlice.actions;
+export const { setCar, setFavorite, setItems, setFilterCar } = carSlice.actions;
 export const carReducer = carSlice.reducer;

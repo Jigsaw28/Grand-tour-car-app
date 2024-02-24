@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { fetchAdvert } from "../api/fetchAdvert";
+import { fetchAdvert, fetchMakes } from "../api/fetchAdvert";
 
 export const getCarThunk = createAsyncThunk(
   "cars/getAllCar",
@@ -11,3 +11,12 @@ export const getCarThunk = createAsyncThunk(
     }
   }
 );
+
+export const getMakeThunk = createAsyncThunk("cars/getAllMakes",
+  async (_, thunkAPI) => {
+  try {
+    return await fetchMakes();
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error.message)
+  }
+})
